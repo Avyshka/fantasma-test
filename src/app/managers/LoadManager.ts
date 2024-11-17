@@ -1,7 +1,8 @@
-import {AppConstants} from "../app/AppConstants";
+import {AppConstants} from "../AppConstants";
+import {Loader} from "../../export";
 
 export class LoadManager {
-    private loader: PIXI.loaders.Loader = PIXI.loaders.shared;
+    private loader: Loader = PIXI.loaders.shared;
 
     public readonly onAssetsLoaded: Promise<void>;
 
