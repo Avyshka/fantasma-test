@@ -6,6 +6,9 @@ export class Dispatcher extends EventEmitter {
 
     private constructor() {
         super();
+        if (__DEV__) {
+            (window as any)["_dispatcher"] = this;
+        }
     }
 
     public static getInstance(): Dispatcher {
