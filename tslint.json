@@ -1,0 +1,48 @@
+{
+  "rules": {
+    "curly": true,
+    "one-line": [true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-finally",
+      "check-whitespace"
+    ],
+    "whitespace": [true,
+      "check-branch",
+      "check-decl",
+      "check-type",
+      "check-operator",
+      "check-separator"
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "triple-equals": [true,
+      "allow-null-check",
+      "allow-undefined-check"
+    ],
+    "forin": true,
+    "no-eval": true,
+    "no-conditional-assignment": true,
+    "no-empty-interface": false,
+    "no-construct": true,
+    "no-debugger": true,
+    "no-invalid-this": false,
+    "no-string-throw": true,
+    "no-var-keyword": true,
+    "new-parens": true,
+    "use-isnan": true,
+    "cyclomatic-complexity": true,
+    "align": [true, "parameters", "statements"],
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "class-name": false,
+    "max-classes-per-file": [true, 2],
+    "prefer-const": true,
+    "no-switch-case-fall-through": true,
+    "no-duplicate-variable": true,
+    "no-consecutive-blank-lines": true,
+    "semicolon": [true, "always", "ignore-interfaces"]
+  }
+}
