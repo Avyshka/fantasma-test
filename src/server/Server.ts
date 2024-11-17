@@ -18,7 +18,11 @@ export class Server extends GlobalEventProvider {
             this.serverModel.doSpin(1);
         }
 
-        this.dispatch(ServerEvents.SEND_RESPONSE_TO_SERVER_CONNECTOR, this.getResponse(data.message));
+        // imitate delay from real server
+        setTimeout(
+            () => this.dispatch(ServerEvents.SEND_RESPONSE_TO_SERVER_CONNECTOR, this.getResponse(data.message)),
+            150 * Math.random() + 50
+        );
     }
 
     private getResponse(message: "init" | "spin"): IServerResponse {

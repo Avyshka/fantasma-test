@@ -1,9 +1,14 @@
-import {LoadManager} from "../managers/LoadManager";
+import {LoadManager} from "./managers/LoadManager";
 import {AppConstants} from "./AppConstants";
+import {Application, Graphics} from "../export";
+import {SpinButtonView} from "../ui/views/SpinButtonView";
+import {SpinButtonMediator} from "../ui/mediators/SpinButtonMediator";
+import {GameFlowManager} from "../gameFlow/managers/GameFlowManager";
+import {ServerConnector} from "../server/controllers/ServerConnector";
 
 export class App {
 
-    private app: PIXI.Application;
+    private app: Application;
 
     constructor() {
         this.createApplication();
@@ -16,11 +21,14 @@ export class App {
                 this.createScene();
                 this.app.ticker.add(this.update.bind(this));
                 this.resize();
+
+                new ServerConnector();
+                new GameFlowManager().startGame();
             });
     }
 
     private createApplication(): void {
-        this.app = new PIXI.Application({
+        this.app = new Application({
             width: AppConstants.width,
             height: AppConstants.height,
             resolution: window.devicePixelRatio
@@ -31,17 +39,17 @@ export class App {
     }
 
     private createScene(): void {
-        const g: PIXI.Graphics = new PIXI.Graphics();
+        const g: Graphics = new Graphics();
         g.beginFill(0xFFFFFF, 0.1);
         g.drawRect(0, 0, AppConstants.width, AppConstants.height);
         this.app.stage.addChild(g);
 
-        const texture: PIXI.Texture = PIXI.Texture.from(AppConstants.images.PLAY_BUTTON_NORMAL);
-        const sprite: PIXI.Sprite = new PIXI.Sprite(texture);
-        sprite.x = AppConstants.width * 0.5;
-        sprite.y = AppConstants.height - sprite.height * 0.5;
-        sprite.anchor.set(0.5);
-        this.app.stage.addChild(sprite);
+        const spinButtonView: SpinButtonView = new SpinButtonView();
+        spinButtonView.x = AppConstants.width * 0.5;
+        spinButtonView.y = AppConstants.height - spinButtonView.height * 0.5;
+        this.app.stage.addChild(spinButtonView);
+
+        new SpinButtonMediator().setView(spinButtonView);
     }
 
     private resize(): void {
