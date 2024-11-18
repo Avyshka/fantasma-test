@@ -1,6 +1,6 @@
 import {GlobalEventProvider} from "../../app/events/GlobalEventProvider";
 import {ServerEvents} from "../events/ServerEvents";
-import {IServerResponse} from "../../gameFlow/interfaces/ResponseInterfaces";
+import {IServerResponse} from "../interfaces/ResponseInterfaces";
 
 export class ServerService extends GlobalEventProvider {
     public resultPromise: IServerResponse;

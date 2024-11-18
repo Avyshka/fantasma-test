@@ -44,6 +44,11 @@ export class SpinButtonView extends BaseView {
         this.renderSprite.texture = value
             ? this.getNormalTexture()
             : this.getDisabledTexture();
+        this.renderSprite.scale.set(
+            value && this.isHovered
+                ? UIConstants.spinButton.scaleHovered
+                : UIConstants.spinButton.scaleNormal
+        );
     }
 
     private onButtonDown(): void {

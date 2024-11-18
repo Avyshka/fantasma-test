@@ -1,8 +1,8 @@
 import {GlobalEventProvider} from "../app/events/GlobalEventProvider";
-import {IRequest} from "../gameFlow/interfaces/IRequest";
+import {IRequest} from "./interfaces/IRequest";
 import {ServerEvents} from "./events/ServerEvents";
-import {IServerResponse} from "../gameFlow/interfaces/ResponseInterfaces";
-import {IInitResult, ISpinResult} from "../gameFlow/interfaces/ResultInterfaces";
+import {IServerResponse} from "./interfaces/ResponseInterfaces";
+import {IInitResult, ISpinResult} from "./interfaces/ResultInterfaces";
 import {ServerModel} from "./models/ServerModel";
 import {ServerConstants} from "./ServerConstants";
 

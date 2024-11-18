@@ -1,7 +1,7 @@
 import {Action} from "../../app/actions/Action";
 import {IActionInfo} from "../../app/actions/interfaces/IActionInfo";
 import {IReelsActionInfo} from "../../app/actions/interfaces/IReelsActionInfo";
-import {IServerResponse} from "../interfaces/ResponseInterfaces";
+import {IServerResponse} from "../../server/interfaces/ResponseInterfaces";
 
 export class WaitResponseAction extends Action {
 

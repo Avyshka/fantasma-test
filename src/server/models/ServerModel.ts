@@ -1,5 +1,5 @@
 import {ServerConstants} from "../ServerConstants";
-import {IReelView} from "../../gameFlow/interfaces/ResultInterfaces";
+import {IReelView} from "../interfaces/ResultInterfaces";
 
 export class ServerModel {
 
