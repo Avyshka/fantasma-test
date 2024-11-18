@@ -5,6 +5,7 @@ import {SpinButtonView} from "../ui/views/SpinButtonView";
 import {SpinButtonMediator} from "../ui/mediators/SpinButtonMediator";
 import {GameFlowManager} from "../gameFlow/managers/GameFlowManager";
 import {ServerConnector} from "../server/controllers/ServerConnector";
+import {WinModel} from "../winnings/models/WinModel";
 
 export class App {
 
@@ -23,6 +24,7 @@ export class App {
                 this.resize();
 
                 new ServerConnector();
+                WinModel.getInstance();
                 new GameFlowManager().startGame();
             });
     }
