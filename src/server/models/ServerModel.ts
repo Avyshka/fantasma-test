@@ -25,6 +25,7 @@ export class ServerModel {
             below: set[this.stop + 3]
         };
         this.countWinnings(screen);
+        this.balance += this.totalWin;
     }
 
     private countWinnings(screen: number[]): void {

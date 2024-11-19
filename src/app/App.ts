@@ -6,6 +6,9 @@ import {SpinButtonMediator} from "../ui/mediators/SpinButtonMediator";
 import {GameFlowManager} from "../gameFlow/managers/GameFlowManager";
 import {ServerConnector} from "../server/controllers/ServerConnector";
 import {WinModel} from "../winnings/models/WinModel";
+import {AmountBarView} from "../ui/views/AmountBarView";
+import {BalanceAmountBarMediator} from "../ui/mediators/BalanceAmountBarMediator";
+import {BetAmountBarMediator} from "../ui/mediators/BetAmountBarMediator";
 
 export class App {
 
@@ -46,12 +49,27 @@ export class App {
         g.drawRect(0, 0, AppConstants.width, AppConstants.height);
         this.app.stage.addChild(g);
 
+        // todo: move to BottomBarView
         const spinButtonView: SpinButtonView = new SpinButtonView();
         spinButtonView.x = AppConstants.width * 0.5;
         spinButtonView.y = AppConstants.height - spinButtonView.height * 0.5;
         this.app.stage.addChild(spinButtonView);
 
         new SpinButtonMediator().setView(spinButtonView);
+
+        const balanceAmountBarView: AmountBarView = new AmountBarView("balance");
+        balanceAmountBarView.x = spinButtonView.x + 240;
+        balanceAmountBarView.y = spinButtonView.y;
+        this.app.stage.addChild(balanceAmountBarView);
+
+        new BalanceAmountBarMediator().setView(balanceAmountBarView);
+
+        const betAmountBarView: AmountBarView = new AmountBarView("bet");
+        betAmountBarView.x = spinButtonView.x - 240;
+        betAmountBarView.y = spinButtonView.y;
+        this.app.stage.addChild(betAmountBarView);
+
+        new BetAmountBarMediator().setView(betAmountBarView);
     }
 
     private resize(): void {

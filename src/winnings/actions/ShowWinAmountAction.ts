@@ -1,6 +1,7 @@
 import {BaseAwaitableAction} from "./BaseAwaitableAction";
 import {WinModel} from "../models/WinModel";
 import {IActionInfo} from "../../app/actions/interfaces/IActionInfo";
+import {BalanceBarIntents} from "../../ui/events/BalanceBarIntents";
 
 export class ShowWinAmountAction extends BaseAwaitableAction {
 
@@ -18,5 +19,10 @@ export class ShowWinAmountAction extends BaseAwaitableAction {
 
     protected internalTerminate(): void {
         // no needed
+    }
+
+    protected readyToFinish(): void {
+        super.readyToFinish();
+        this.dispatch(BalanceBarIntents.UPDATE_VIEW_BALANCE);
     }
 }

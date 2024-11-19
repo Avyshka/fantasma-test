@@ -9,6 +9,9 @@ export class GameFlowManager {
     constructor() {
         this.actionManager
             .addAction(new SendGameStatRequestAction())
+            // todo: loading assets
+            // todo: creating scene
+            // todo: update data
             .addAction(new RunGameAction());
     }
 

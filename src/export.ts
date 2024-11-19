@@ -6,6 +6,9 @@ import Graphics = PIXI.Graphics;
 import Loader = PIXI.loaders.Loader;
 import Sprite = PIXI.Sprite;
 import Texture = PIXI.Texture;
+import Text = PIXI.Text;
+import TextStyle = PIXI.TextStyle;
+import TextStyleOptions = PIXI.TextStyleOptions;
 
 export {
     Application,
@@ -15,5 +18,8 @@ export {
     Graphics,
     Loader,
     Sprite,
+    Text,
+    TextStyle,
+    TextStyleOptions,
     Texture,
 };
