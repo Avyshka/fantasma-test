@@ -22,8 +22,8 @@ export abstract class BaseAwaitableAction extends Action {
 
     public onTerminate(actionInfo: IActionInfo): Promise<IActionInfo> {
         return new Promise(resolve => {
-            this.terminateResolve = this.mainResolve;
-            this.terminateActionInfo = this.mainActionInfo;
+            this.terminateResolve = resolve;
+            this.terminateActionInfo = actionInfo;
             this.internalTerminate();
         });
     }

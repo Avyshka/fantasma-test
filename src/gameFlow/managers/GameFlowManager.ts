@@ -14,7 +14,7 @@ export class GameFlowManager {
 
     public startGame(): void {
         this.actionManager.start({
-            isSuccess: true,
+            shouldForceSpin: false,
             isTerminating: false
         } as IActionInfo);
     }

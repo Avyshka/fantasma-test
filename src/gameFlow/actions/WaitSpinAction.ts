@@ -17,6 +17,10 @@ export class WaitSpinAction extends Action {
             this.actionInfo = actionInfo;
 
             this.addListener(GameFlowIntents.START_SPIN, this.onSpinStartRequested);
+
+            if (actionInfo.shouldForceSpin) {
+                this.startWithCheck(actionInfo);
+            }
         });
     }
 
@@ -37,6 +41,7 @@ export class WaitSpinAction extends Action {
     }
 
     private onSpinStarted(actionInfo: IReelsActionInfo): void {
+        actionInfo.shouldForceSpin = false;
         actionInfo.isTerminating = false;
         this.dispatch(SpinButtonIntents.CHANGE_STATE, false);
         this.readyToResolve(actionInfo);

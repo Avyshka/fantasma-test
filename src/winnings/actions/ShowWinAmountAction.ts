@@ -17,5 +17,6 @@ export class ShowWinAmountAction extends BaseAwaitableAction {
     }
 
     protected internalTerminate(): void {
+        // no needed
     }
 }

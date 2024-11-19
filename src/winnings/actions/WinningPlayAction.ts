@@ -52,6 +52,9 @@ export class WinningPlayAction extends Action {
     }
 
     protected onSpinStartRequested() {
+        this.actionInfo.shouldForceSpin = true;
+        this.actionInfo.isTerminating = true;
+
         this.actionManager.terminate();
         this.dispatch(SpinButtonIntents.CHANGE_STATE, false);
     }
