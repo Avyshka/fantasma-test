@@ -4,7 +4,7 @@ import {SpinButtonMediator} from "../mediators/SpinButtonMediator";
 import {AmountBarView} from "./AmountBarView";
 import {BalanceAmountBarMediator} from "../mediators/BalanceAmountBarMediator";
 import {BetAmountBarMediator} from "../mediators/BetAmountBarMediator";
-import {AppConstants} from "../../app/AppConstants";
+import {AppConstants} from "../../AppConstants";
 import {SceneContainerViewEvents} from "../../scene/events/SceneContainerViewEvents";
 
 export class BottomBarView extends BaseView {

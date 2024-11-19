@@ -1,4 +1,4 @@
-import {AppConstants} from "./AppConstants";
+import {AppConstants} from "../AppConstants";
 import {Application} from "../export";
 import {GameFlowManager} from "../gameFlow/managers/GameFlowManager";
 import {ServerConnector} from "../server/controllers/ServerConnector";

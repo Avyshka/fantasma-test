@@ -1,4 +1,4 @@
-import {AppConstants} from "../AppConstants";
+import {AppConstants} from "../../AppConstants";
 import {Loader} from "../../export";
 
 export class LoadManager {

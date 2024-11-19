@@ -1,6 +1,6 @@
 import {BaseView} from "../../app/views/BaseView";
 import {Graphics} from "../../export";
-import {AppConstants} from "../../app/AppConstants";
+import {AppConstants} from "../../AppConstants";
 
 export class MainGameSceneView extends BaseView {
     constructor() {

@@ -1,5 +1,5 @@
 import {Circle, Sprite, Texture} from "../../export";
-import {AppConstants} from "../../app/AppConstants";
+import {AppConstants} from "../../AppConstants";
 import {UIConstants} from "../UIConstants";
 import {BaseView} from "../../app/views/BaseView";
 import {SpinButtonViewEvents} from "../events/SpinButtonViewEvents";
