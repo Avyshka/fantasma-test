@@ -1,9 +1,9 @@
 import "../data/css/style.css";
-import {App} from "./app/App";
+import {Context} from "./app/Context";
 
 function launchGame(): void {
     window.focus();
-    new App();
+    new Context().start();
 }
 
 window.onload = launchGame;
