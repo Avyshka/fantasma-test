@@ -1,5 +1,7 @@
+import {ServerRequestType} from "../types/ServerRequestType";
+
 export interface IRequest {
-    message: "init" | "spin",
+    message: ServerRequestType,
     payload?: {
         bet: number
     }

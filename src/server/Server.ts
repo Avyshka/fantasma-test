@@ -4,16 +4,17 @@ import {ServerEvents} from "./events/ServerEvents";
 import {IServerResponse} from "./interfaces/ResponseInterfaces";
 import {IInitResult, ISpinResult} from "./interfaces/ResultInterfaces";
 import {ServerModel} from "./models/ServerModel";
-import {ServerConstants} from "./ServerConstants";
+import {ServerRequests} from "./enums/ServerRequests";
 
 export class Server extends GlobalEventProvider {
 
     private serverModel: ServerModel = new ServerModel();
 
     public playRequest(data: IRequest): void {
-        if (data.message === "spin") {
+        if (data.message === ServerRequests.SPIN) {
             this.serverModel.doSpin();
-            this.serverModel.balance -= data.payload?.bet || 0;
+            this.serverModel.bet = data.payload.bet;
+            this.serverModel.balance -= this.serverModel.bet;
         } else {
             this.serverModel.doSpin(1);
         }
@@ -25,18 +26,22 @@ export class Server extends GlobalEventProvider {
         );
     }
 
-    private getResponse(message: "init" | "spin"): IServerResponse {
+    private getResponse(message: ServerRequests): IServerResponse {
         return {
             balance: {
                 amount: this.serverModel.balance,
-                currency: ServerConstants.currency
+                currency: this.serverModel.currency
             },
-            result: message === "spin" ? this.getSpinResult() : this.getInitResult()
+            bet: this.serverModel.bet,
+            result: message === ServerRequests.SPIN
+                ? this.getSpinResult()
+                : this.getInitResult()
         };
     }
 
     private getInitResult(): IInitResult {
         return {
+            action: ServerRequests.INIT,
             set: this.serverModel.set,
             view: this.serverModel.view
         };
@@ -44,6 +49,7 @@ export class Server extends GlobalEventProvider {
 
     private getSpinResult(): ISpinResult {
         return {
+            action: ServerRequests.SPIN,
             view: this.serverModel.view,
             totalWin: this.serverModel.totalWin,
             winSymbolPositions: this.serverModel.winSymbolPositions

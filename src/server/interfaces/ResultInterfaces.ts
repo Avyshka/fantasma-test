@@ -1,5 +1,7 @@
-export interface IBaseResult {
+import {ServerRequestType} from "../types/ServerRequestType";
 
+export interface IBaseResult {
+    action: ServerRequestType;
 }
 
 export interface IInitResult extends IBaseResult {

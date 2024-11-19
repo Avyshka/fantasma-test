@@ -1,10 +1,13 @@
 import {GlobalEventProvider} from "../../app/events/GlobalEventProvider";
 import {ServerEvents} from "../events/ServerEvents";
 import {Server} from "../Server";
+import {BetModel} from "../../ui/models/BetModel";
+import {ServerRequests} from "../enums/ServerRequests";
 
 export class ServerConnector extends GlobalEventProvider {
 
     private server: Server = new Server();
+    private betModel: BetModel = BetModel.getInstance();
 
     constructor() {
         super();
@@ -22,7 +25,7 @@ export class ServerConnector extends GlobalEventProvider {
     protected onInitRequest(): void {
         this.log("ServerEvent.SEND_INIT_REQUEST_TO_SERVER_CONNECTOR");
         this.server.playRequest({
-            message: "init",
+            message: ServerRequests.INIT,
             payload: null
         });
     }
@@ -30,9 +33,9 @@ export class ServerConnector extends GlobalEventProvider {
     protected onPlayRequest(): void {
         this.log("ServerEvent.SEND_PLAY_REQUEST_TO_SERVER_CONNECTOR");
         this.server.playRequest({
-            message: "spin",
+            message: ServerRequests.SPIN,
             payload: {
-                bet: 1
+                bet: this.betModel.bet
             }
         });
     }

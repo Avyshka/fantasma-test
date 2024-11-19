@@ -11,6 +11,7 @@ import {DoSpinRequestAction} from "./DoSpinRequestAction";
 import {StartReelsAction} from "./StartReelsAction";
 import {WaitResponseAction} from "./WaitResponseAction";
 import {WaitStopReelsAction} from "./WaitStopReelsAction";
+import {DeductBetFromBalanceAction} from "./DeductBetFromBalanceAction";
 
 export class ReelsPlayAction extends Action {
     private actionManager: ActionManager = new ActionManager();
@@ -28,7 +29,7 @@ export class ReelsPlayAction extends Action {
         return [
             WaitSpinAction,
             DoSpinRequestAction,
-            // todo: DeductBetFromBalanceAction,
+            DeductBetFromBalanceAction,
             StartReelsAction,
             WaitResponseAction,
             // todo: unlock UI???
