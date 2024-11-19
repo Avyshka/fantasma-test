@@ -1,13 +1,14 @@
 import {ActionManager} from "../../app/actions/ActionManager";
 import {IActionInfo} from "../../app/actions/interfaces/IActionInfo";
 import {RunGameAction} from "../actions/RunGameAction";
+import {InitGameDataAction} from "../actions/InitGameDataAction";
 
 export class GameFlowManager {
     private actionManager: ActionManager = new ActionManager();
 
     constructor() {
         this.actionManager
-            // todo: update data InitGameDataAction
+            .addAction(new InitGameDataAction())
             .addAction(new RunGameAction());
     }
 

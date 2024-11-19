@@ -1,8 +1,8 @@
 import {Mediator} from "../../app/mediators/Mediator";
 import {AmountBarView} from "../views/AmountBarView";
 import {BalanceModel} from "../models/BalanceModel";
-import {BalanceBarIntents} from "../events/BalanceBarIntents";
 import {BetModel} from "../models/BetModel";
+import {GameFlowIntents} from "../../gameFlow/events/GameFlowIntents";
 
 export class BetAmountBarMediator extends Mediator {
     protected view: AmountBarView;
@@ -11,11 +11,10 @@ export class BetAmountBarMediator extends Mediator {
     private balanceModel: BalanceModel = BalanceModel.getInstance();
 
     protected initialize(): void {
-        // todo: change to init event
-        this.addListener(BalanceBarIntents.UPDATE_VIEW_BALANCE, this.onUpdateViewBalance);
+        this.addListenerOnce(GameFlowIntents.INITIALIZE_GAME_DATA, this.onInitGameData);
     }
 
-    private onUpdateViewBalance(): void {
+    private onInitGameData(): void {
         this.view.updateAmount(this.getFormattedValue());
     }
 
