@@ -12,11 +12,11 @@ export class Server extends GlobalEventProvider {
 
     public playRequest(data: IRequest): void {
         if (data.message === ServerRequests.SPIN) {
-            this.serverModel.doSpin();
             this.serverModel.bet = data.payload.bet;
             this.serverModel.balance -= this.serverModel.bet;
+            this.serverModel.doSpin();
         } else {
-            this.serverModel.doSpin(1);
+            this.serverModel.doInit();
         }
 
         // imitate delay from real server

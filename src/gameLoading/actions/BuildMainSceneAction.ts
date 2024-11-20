@@ -1,7 +1,8 @@
 import {Action} from "../../app/actions/Action";
 import {IActionInfo} from "../../app/actions/interfaces/IActionInfo";
 import {BottomBarView} from "../../ui/views/BottomBarView";
-import {BottomBarMediator} from "../../ui/mediators/BottomBarMediator";
+import {LayoutMediator} from "../../app/mediators/LayoutMediator";
+import {ReelsContainerLayoutView} from "../../reels/views/ReelsContainerLayoutView";
 
 export class BuildMainSceneAction extends Action {
 
@@ -11,6 +12,7 @@ export class BuildMainSceneAction extends Action {
     }
 
     private buildMainScene(): void {
-        new BottomBarMediator().setView(new BottomBarView());
+        new LayoutMediator().setView(new BottomBarView());
+        new LayoutMediator().setView(new ReelsContainerLayoutView());
     }
 }

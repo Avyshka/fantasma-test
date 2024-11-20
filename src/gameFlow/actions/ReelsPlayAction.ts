@@ -13,6 +13,7 @@ import {WaitResponseAction} from "./WaitResponseAction";
 import {WaitStopReelsAction} from "./WaitStopReelsAction";
 import {DeductBetFromBalanceAction} from "./DeductBetFromBalanceAction";
 import {EnableSpinButtonAction} from "./EnableSpinButtonAction";
+import {ReelsIntents} from "../../reels/events/ReelsIntents";
 
 export class ReelsPlayAction extends Action {
     private actionManager: ActionManager = new ActionManager();
@@ -33,7 +34,6 @@ export class ReelsPlayAction extends Action {
             DeductBetFromBalanceAction,
             StartReelsAction,
             WaitResponseAction,
-            EnableSpinButtonAction,
             WaitStopReelsAction,
             EnableSpinButtonAction
         ];
@@ -41,6 +41,7 @@ export class ReelsPlayAction extends Action {
 
     private onReadyToStop(): void {
         this.onReadyToStopChangeUI();
+        this.dispatch(ReelsIntents.FORCE_STOP_REELS);
         this.actionManager.terminate();
     }
 

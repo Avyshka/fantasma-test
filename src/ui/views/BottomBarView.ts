@@ -1,23 +1,20 @@
-import {BaseView} from "../../app/views/BaseView";
 import {SpinButtonView} from "./SpinButtonView";
 import {SpinButtonMediator} from "../mediators/SpinButtonMediator";
 import {AmountBarView} from "./AmountBarView";
 import {BalanceAmountBarMediator} from "../mediators/BalanceAmountBarMediator";
 import {BetAmountBarMediator} from "../mediators/BetAmountBarMediator";
 import {AppConstants} from "../../AppConstants";
-import {SceneContainerViewEvents} from "../../scene/events/SceneContainerViewEvents";
+import {LayoutView} from "../../app/views/LayoutView";
 
-export class BottomBarView extends BaseView {
+export class BottomBarView extends LayoutView {
 
-    public buildLayout(): void {
+    protected create(): void {
         this.createBetBar();
         this.createBalanceBar();
         this.createSpinButton();
 
         this.x = AppConstants.width * 0.5;
         this.y = AppConstants.height - this.getBounds().height * 0.5;
-
-        this.emit(SceneContainerViewEvents.ADD_CHILD_TO_SCENE);
     }
 
     private createSpinButton(): void {

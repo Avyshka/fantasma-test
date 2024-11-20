@@ -1,13 +1,20 @@
 import {BaseAwaitableAction} from "../../winnings/actions/BaseAwaitableAction";
+import {ReelsIntents} from "../../reels/events/ReelsIntents";
+import {ReelsEvents} from "../../reels/events/ReelsEvents";
+import {ReelsStatesModel} from "../../reels/models/ReelsStatesModel";
+import {SpinButtonIntents} from "../../ui/events/SpinButtonIntents";
 
 export class WaitStopReelsAction extends BaseAwaitableAction {
 
-    protected internalExecute(): void {
-        this.addListener("ReelsEvents.ALL_REELS_STOPPED", this.readyToFinish);
-        this.dispatch("ReelsEvents.STOP_REELS");
+    private reelsStatesModel: ReelsStatesModel = ReelsStatesModel.getInstance();
 
-        // fixme: remove after reels logic implementation
-        setTimeout(() => this.dispatch("ReelsEvents.ALL_REELS_STOPPED"), 3000);
+    protected internalExecute(): void {
+        this.addListener(ReelsEvents.ALL_REELS_STOPPED, this.readyToFinish);
+        Promise.all(this.reelsStatesModel.reelStartingPromises)
+            .then(() => {
+                this.dispatch(SpinButtonIntents.CHANGE_STATE, true);
+                this.dispatch(ReelsIntents.STOP_REELS);
+            });
     }
 
     protected internalTerminate(): void {

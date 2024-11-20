@@ -5,7 +5,7 @@ import {ISpinResult} from "../../server/interfaces/ResultInterfaces";
 export class WinModel extends BaseServerModel {
 
     private _totalWin: number;
-    private _winSymbolPositions: number[];
+    private _winSymbolPositions: number[][];
 
     private static instance: WinModel;
 
@@ -30,7 +30,7 @@ export class WinModel extends BaseServerModel {
         return this._totalWin;
     }
 
-    public get winSymbolPositions(): number[] {
+    public get winSymbolPositions(): number[][] {
         return this._winSymbolPositions;
     }
 }

@@ -8,6 +8,7 @@ import {MainGameSceneView} from "../scene/views/MainGameSceneView";
 import {GameLoadingManager} from "../gameLoading/managers/GameLoadingManager";
 import {BalanceModel} from "../ui/models/BalanceModel";
 import {BetModel} from "../ui/models/BetModel";
+import {ReelsModel} from "../reels/models/ReelsModel";
 
 export class Context {
 
@@ -47,6 +48,7 @@ export class Context {
         new ServerConnector();
         BetModel.getInstance();
         BalanceModel.getInstance();
+        ReelsModel.getInstance();
 
         await new GameLoadingManager().startLoadingGame();
     }
