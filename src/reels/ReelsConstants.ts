@@ -10,6 +10,8 @@ export const ReelsConstants = {
 
     PER_REEL_STOPPING_DELAY: 150,
 
+    MIN_SPIN_DURATION: 3000,
+
     speed: {
         STARTING_DURATION: 0.3,
         SPINNING_DURATION: 0.05,
