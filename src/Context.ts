@@ -52,17 +52,17 @@ export class Context {
         BalanceModel.getInstance();
         ReelsModel.getInstance();
 
-        if (__DEV__) {
-            new ConfigPanelManager()
-                .init()
-                .addSection(new ReelsConfigSection());
-        }
-
         await new GameLoadingManager().startLoadingGame();
     }
 
     private startGame(): void {
         WinModel.getInstance();
+
+        if (__DEV__) {
+            new ConfigPanelManager()
+                .init()
+                .addSection(new ReelsConfigSection());
+        }
 
         new GameFlowManager().startGame();
     }
@@ -71,9 +71,13 @@ export class Context {
         const scaleX: number = window.innerWidth / AppConstants.width;
         const scaleY: number = window.innerHeight / AppConstants.height;
 
+        const isLandscape: boolean = scaleX > scaleY;
+
         this.app.renderer.resize(AppConstants.width * scaleX, AppConstants.height * scaleY);
-        this.app.stage.scale.set(Math.min(scaleX, scaleY));
-        this.app.stage.y = (window.innerHeight - AppConstants.height * scaleX) * 0.5;
+        const scale: number = Math.min(scaleX, scaleY);
+        this.app.stage.scale.set(scale);
+        this.app.stage.x = isLandscape ? (window.innerWidth - AppConstants.width * scale) * 0.5 : 0;
+        this.app.stage.y = isLandscape ? 0 : (window.innerHeight - AppConstants.height * scale) * 0.5;
     }
 
     private update(deltaTime: number): void {
