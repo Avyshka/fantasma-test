@@ -23,5 +23,7 @@ export const ReelsConstants = {
 
         ROLLING_OUT_PERCENT: 0.1,
         FORCE_ROLLING_OUT_PERCENT: 0.025,
-    }
+    },
+
+    TILE_ANIMATION_DURATION: 0.3
 };

@@ -7,10 +7,13 @@ import {SpinDirection} from "../enums/SpinDirection";
 import {ReelsStatesModel} from "../models/ReelsStatesModel";
 import {ReelsStatesEnum} from "../enums/ReelsStatesEnum";
 import {ReelsUtil} from "../utils/ReelsUtil";
+import {ReelsViewModel} from "../models/ReelsViewModel";
+import {SingleReelModel} from "../models/SingleReelModel";
 
 export class ReelView extends BaseView {
 
     private reelsStatesModel: ReelsStatesModel = ReelsStatesModel.getInstance();
+    private reelsViewModel: ReelsViewModel = ReelsViewModel.getInstance();
     private reelsUtil: ReelsUtil = ReelsUtil.getInstance();
 
     private tiles: TileView[] = [];
@@ -48,6 +51,8 @@ export class ReelView extends BaseView {
     }
 
     public buildReel(): void {
+        const singleReelModel: SingleReelModel = new SingleReelModel();
+
         const countTiles: number = ReelsConstants.COUNT_LINES + 2 * ReelsConstants.EXTRA_LINES;
         const startPositionY: number = ((ReelsConstants.TILE_HEIGHT + ReelsConstants.TILE_GAP) * (countTiles - 1)) / -2;
         for (let i: number = 0; i < countTiles; i++) {
@@ -55,7 +60,9 @@ export class ReelView extends BaseView {
             tile.y = startPositionY + (ReelsConstants.TILE_HEIGHT + ReelsConstants.TILE_GAP) * i;
             this.addChild(tile);
             this.tiles.push(tile);
+            singleReelModel.addTile(tile);
         }
+        this.reelsViewModel.singleReelModels.push(singleReelModel);
     }
 
     public initReel(reelView: number[]): void {
@@ -242,9 +249,7 @@ export class ReelView extends BaseView {
     private changeForceStoppingForTile(): Promise<void> {
         const forceStopPromises: Promise<void>[] = [];
 
-        const tiles: TileView[] = this.tiles
-            .slice()
-            .sort((tile1: TileView, tile2: TileView) => tile2.y - tile1.y);
+        const tiles: TileView[] = this.reelsViewModel.singleReelModels[this.reelId].getTiles();
 
         this.result.forEach((symbolId: number, index: number) => {
             const tile: TileView = tiles[index];

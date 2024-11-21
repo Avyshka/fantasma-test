@@ -59,9 +59,9 @@ export class ReelsModel extends BaseServerModel {
         this.reelSetPosition[reelIndex] += step;
 
         if (this.reelSetPosition[reelIndex] < 0) {
-            this.reelSetPosition[reelIndex] += this.set.length;
-        } else if (this.reelSetPosition[reelIndex] >= this.set.length) {
-            this.reelSetPosition[reelIndex] %= this.set.length;
+            this.reelSetPosition[reelIndex] += this.set[reelIndex].length;
+        } else if (this.reelSetPosition[reelIndex] >= this.set[reelIndex].length) {
+            this.reelSetPosition[reelIndex] %= this.set[reelIndex].length;
         }
         return this.set[reelIndex][this.reelSetPosition[reelIndex]];
     }

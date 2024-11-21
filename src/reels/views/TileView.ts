@@ -4,6 +4,7 @@ import {AppConstants} from "../../AppConstants";
 import {StringUtils} from "../../app/utils/StringUtils";
 import {TweenMax} from "gsap";
 import {ReelsConstants} from "../ReelsConstants";
+import {Tween} from "../../app/utils/Tween";
 
 export class TileView extends BaseView {
     private renderSprite: Sprite;
@@ -34,13 +35,25 @@ export class TileView extends BaseView {
         // todo: add blur filter?
     }
 
-    public playAnimation(): Promise<void> {
-        return Promise.resolve();
+    public async playAnimation(loop: boolean): Promise<void> {
+        if (loop) {
+            await this.playWinAnimation();
+            this.playAnimation(loop);
+        } else {
+            return this.playWinAnimation();
+        }
+    }
+
+    private async playWinAnimation(): Promise<void> {
+        await Tween.to(this.renderSprite.scale, ReelsConstants.TILE_ANIMATION_DURATION, {x: 0.5, y: 0.5});
+        await Tween.to(this.renderSprite.scale, ReelsConstants.TILE_ANIMATION_DURATION, {x: 0.9, y: 0.9});
+        await Tween.to(this.renderSprite.scale, ReelsConstants.TILE_ANIMATION_DURATION, {x: 0.75, y: 0.75});
+        await Tween.to(this.renderSprite.scale, ReelsConstants.TILE_ANIMATION_DURATION, {x: 1, y: 1});
     }
 
     public stopAnimation(): void {
-        TweenMax.killTweensOf(this);
-        this.scale.set(1);
+        TweenMax.killTweensOf(this.renderSprite.scale);
+        this.renderSprite.scale.set(1);
     }
 
     private getTexture(): Texture {

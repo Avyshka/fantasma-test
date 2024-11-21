@@ -6,6 +6,7 @@ import {GameFlowIntents} from "../../gameFlow/events/GameFlowIntents";
 import {ShowWinAmountAction} from "./ShowWinAmountAction";
 import {SpinButtonIntents} from "../../ui/events/SpinButtonIntents";
 import {ShowWinSymbolsAction} from "./ShowWinSymbolsAction";
+import {ToggleWinSymbolsAction} from "./ToggleWinSymbolsAction";
 
 export class WinningPlayAction extends Action {
     protected actionManager: ActionManager = new ActionManager();
@@ -43,7 +44,8 @@ export class WinningPlayAction extends Action {
     protected getActionSequence(): IAction[] {
         return [
             new ShowWinSymbolsAction(),
-            new ShowWinAmountAction()
+            new ShowWinAmountAction(),
+            new ToggleWinSymbolsAction()
         ];
     }
 

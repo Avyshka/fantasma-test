@@ -5,22 +5,19 @@ import {ReelsViewModel} from "../../reels/models/ReelsViewModel";
 import {ReelsConstants} from "../../reels/ReelsConstants";
 import {TileView} from "../../reels/views/TileView";
 
-export class ShowWinSymbolsAction extends BaseAwaitableAction {
+export class ToggleWinSymbolsAction extends BaseAwaitableAction {
     private winModel: WinModel = WinModel.getInstance();
     private reelsViewModel: ReelsViewModel = ReelsViewModel.getInstance();
 
     protected guard(actionInfo: IActionInfo): boolean {
-        return this.winModel.winSymbolPositions.length > 0;
+        return !actionInfo.isTerminating && this.winModel.winSymbolPositions.length > 0;
     }
 
     protected internalExecute(): void {
-        const promises: Promise<void>[] = [];
         this.winModel.winSymbolPositions.forEach((winSymbolPosition: number[]) => {
             const tile: TileView = this.getWinTile(winSymbolPosition);
-            promises.push(tile.playAnimation(false));
+            tile.playAnimation(true);
         });
-        Promise.all(promises)
-            .then(() => this.readyToFinish());
     }
 
     protected internalTerminate(): void {
