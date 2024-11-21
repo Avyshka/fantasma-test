@@ -13,9 +13,9 @@ export const ReelsConstants = {
     MIN_SPIN_DURATION: 3000,
 
     speed: {
-        STARTING_DURATION: 0.3,
-        SPINNING_DURATION: 0.05,
-        STOPPING_DURATION: 0.04,
+        STARTING_DURATION: 0.4,
+        SPINNING_DURATION: 0.08,
+        STOPPING_DURATION: 0.08,
 
         FINAL_PRE_BOUNCE_TILE_DURATION: 0.0065,
         FINAL_BOUNCE_TILE_DURATION: 0.5,

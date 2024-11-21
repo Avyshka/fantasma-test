@@ -1,5 +1,5 @@
 import "../data/css/style.css";
-import {Context} from "./app/Context";
+import {Context} from "./Context";
 
 function launchGame(): void {
     window.focus();

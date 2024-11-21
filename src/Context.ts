@@ -1,14 +1,16 @@
-import {AppConstants} from "../AppConstants";
-import {Application} from "../export";
-import {GameFlowManager} from "../gameFlow/managers/GameFlowManager";
-import {ServerConnector} from "../server/controllers/ServerConnector";
-import {WinModel} from "../winnings/models/WinModel";
-import {MainGameSceneMediator} from "../scene/mediators/MainGameSceneMediator";
-import {MainGameSceneView} from "../scene/views/MainGameSceneView";
-import {GameLoadingManager} from "../gameLoading/managers/GameLoadingManager";
-import {BalanceModel} from "../ui/models/BalanceModel";
-import {BetModel} from "../ui/models/BetModel";
-import {ReelsModel} from "../reels/models/ReelsModel";
+import {AppConstants} from "./AppConstants";
+import {Application} from "./export";
+import {GameFlowManager} from "./gameFlow/managers/GameFlowManager";
+import {ServerConnector} from "./server/controllers/ServerConnector";
+import {WinModel} from "./winnings/models/WinModel";
+import {MainGameSceneMediator} from "./scene/mediators/MainGameSceneMediator";
+import {MainGameSceneView} from "./scene/views/MainGameSceneView";
+import {GameLoadingManager} from "./gameLoading/managers/GameLoadingManager";
+import {BalanceModel} from "./ui/models/BalanceModel";
+import {BetModel} from "./ui/models/BetModel";
+import {ReelsModel} from "./reels/models/ReelsModel";
+import {ConfigPanelManager} from "./configsPanel/managers/ConfigPanelManager";
+import {ReelsConfigSection} from "./configsPanel/sections/ReelsConfigSection";
 
 export class Context {
 
@@ -49,6 +51,12 @@ export class Context {
         BetModel.getInstance();
         BalanceModel.getInstance();
         ReelsModel.getInstance();
+
+        if (__DEV__) {
+            new ConfigPanelManager()
+                .init()
+                .addSection(new ReelsConfigSection());
+        }
 
         await new GameLoadingManager().startLoadingGame();
     }
