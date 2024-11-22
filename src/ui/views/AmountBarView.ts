@@ -19,7 +19,7 @@ export class AmountBarView extends BaseView {
     }
 
     private addBackground(): void {
-        const backWidth: number = 152;
+        const backWidth: number = 180;
         const backHeight: number = (this.getTitleFontSize() + this.getAmountFontSize()) * 1.8;
         const backRadius: number = 12;
 

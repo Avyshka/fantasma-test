@@ -7,6 +7,7 @@ import {ShowWinAmountAction} from "./ShowWinAmountAction";
 import {SpinButtonIntents} from "../../ui/events/SpinButtonIntents";
 import {ShowWinSymbolsAction} from "./ShowWinSymbolsAction";
 import {ToggleWinSymbolsAction} from "./ToggleWinSymbolsAction";
+import {HideWinAmountAction} from "./HideWinAmountAction";
 
 export class WinningPlayAction extends Action {
     protected actionManager: ActionManager = new ActionManager();
@@ -45,6 +46,7 @@ export class WinningPlayAction extends Action {
         return [
             new ShowWinSymbolsAction(),
             new ShowWinAmountAction(),
+            new HideWinAmountAction(),
             new ToggleWinSymbolsAction()
         ];
     }

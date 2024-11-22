@@ -7,7 +7,7 @@
                 if (params.hasOwnProperty(shortMatch)) {
                     result = params[shortMatch];
                 } else {
-                    console.warn(`param with index '${shortMatch}' is not exists in params: [${params.toString()}]`);
+                    console.warn(`param with index "${shortMatch}" is not exists in params: [${params.toString()}]`);
                     result = "";
                 }
                 return result;

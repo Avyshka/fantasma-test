@@ -11,6 +11,7 @@ import {BetModel} from "./ui/models/BetModel";
 import {ReelsModel} from "./reels/models/ReelsModel";
 import {ConfigPanelManager} from "./configsPanel/managers/ConfigPanelManager";
 import {ReelsConfigSection} from "./configsPanel/sections/ReelsConfigSection";
+import {WinBoxConfigSection} from "./configsPanel/sections/WinBoxConfigSection";
 
 export class Context {
 
@@ -61,7 +62,8 @@ export class Context {
         if (__DEV__) {
             new ConfigPanelManager()
                 .init()
-                .addSection(new ReelsConfigSection());
+                .addSection(new ReelsConfigSection())
+                .addSection(new WinBoxConfigSection());
         }
 
         new GameFlowManager().startGame();

@@ -2,6 +2,7 @@ import {BaseServerModel} from "../../app/models/BaseServerModel";
 import {IServerResponse} from "../../server/interfaces/ResponseInterfaces";
 import {ServerRequests} from "../../server/enums/ServerRequests";
 import {ServerRequestType} from "../../server/types/ServerRequestType";
+import {MoneyFormatter} from "../../winnings/utils/MoneyFormatter";
 
 export class BetModel extends BaseServerModel {
 
@@ -22,6 +23,9 @@ export class BetModel extends BaseServerModel {
 
     protected parseResponse(data: IServerResponse): void {
         this._bet = data.bet;
+        MoneyFormatter
+            .getInstance()
+            .setCurrency(data.balance.currency);
     }
 
     protected getSupportedRequestTypes(): ServerRequestType[] {
