@@ -13,7 +13,7 @@ export class WinBoxView extends LayoutView {
         this.createTicker();
 
         this.x = AppConstants.width * 0.5;
-        this.y = AppConstants.height * 0.4;
+        this.y = (AppConstants.height - AppConstants.bottomBarHeight) * 0.5;
 
         this.scale.set(0);
         this.alpha = 0;

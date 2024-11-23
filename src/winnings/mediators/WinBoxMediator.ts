@@ -13,7 +13,7 @@ export class WinBoxMediator extends LayoutMediator {
         super.initialize();
         this.addListener(WinBoxIntents.SHOW, this.onShowWinBox);
         this.addListener(WinBoxIntents.HIDE, this.onHideWinBox);
-        this.addListener(WinBoxEvents.VALUE_CHANGED, this.onHideWinValueChanged);
+        this.addListener(WinBoxEvents.VALUE_CHANGED, this.onWinValueChanged);
     }
 
     private onShowWinBox(): void {
@@ -24,7 +24,7 @@ export class WinBoxMediator extends LayoutMediator {
         this.view.hide();
     }
 
-    private onHideWinValueChanged(value: number): void {
+    private onWinValueChanged(value: number): void {
         this.view.updateAmount(this.moneyFormatter.format(value));
     }
 }

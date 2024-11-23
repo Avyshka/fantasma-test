@@ -4,7 +4,7 @@ import {LoadManager} from "../../app/managers/LoadManager";
 
 export class LoadAssetsAction extends Action {
 
-    protected loadManager: LoadManager = new LoadManager();
+    private loadManager: LoadManager = new LoadManager();
 
     public onExecute(actionInfo: IActionInfo): Promise<IActionInfo> {
         return this.loadManager.loadAssets()

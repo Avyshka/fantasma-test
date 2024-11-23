@@ -1,20 +1,21 @@
 import {Circle, Sprite, Texture} from "../../export";
 import {AppConstants} from "../../AppConstants";
 import {UIConstants} from "../UIConstants";
-import {BaseView} from "../../app/views/BaseView";
 import {SpinButtonViewEvents} from "../events/SpinButtonViewEvents";
+import {LayoutView} from "../../app/views/LayoutView";
 
-export class SpinButtonView extends BaseView {
+export class SpinButtonView extends LayoutView {
 
     private renderSprite: Sprite;
 
     private isPressed: boolean;
     private isHovered: boolean;
 
-    constructor() {
-        super();
+    protected create(): void {
         this.createButton();
         this.addListeners();
+        this.x = AppConstants.width - this.getBounds().width * 0.5;
+        this.y = (AppConstants.height - AppConstants.bottomBarHeight) * 0.5;
     }
 
     private createButton(): void {

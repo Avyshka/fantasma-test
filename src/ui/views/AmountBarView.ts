@@ -1,5 +1,5 @@
 import {BaseView} from "../../app/views/BaseView";
-import {Graphics, Text, TextStyle} from "../../export";
+import {Text, TextStyle} from "../../export";
 import {UIConstants} from "../UIConstants";
 
 export class AmountBarView extends BaseView {
@@ -9,30 +9,12 @@ export class AmountBarView extends BaseView {
 
     constructor(title: string) {
         super();
-        this.addBackground();
         this.addTitle(title);
         this.addAmount();
     }
 
     public updateAmount(value: string): void {
         this.amountLabel.text = value;
-    }
-
-    private addBackground(): void {
-        const backWidth: number = 180;
-        const backHeight: number = (this.getTitleFontSize() + this.getAmountFontSize()) * 1.8;
-        const backRadius: number = 12;
-
-        const background: Graphics = new Graphics();
-        background.beginFill(0x000000, 0.5);
-        background.drawRoundedRect(
-            -backWidth / 2,
-            -backHeight / 2,
-            backWidth,
-            backHeight,
-            backRadius
-        );
-        this.addChild(background);
     }
 
     private addTitle(title: string): void {
@@ -50,7 +32,7 @@ export class AmountBarView extends BaseView {
     }
 
     private getPositionY(): number {
-        return (this.getTitleFontSize() * 0.7 + this.getAmountFontSize() * 0.7) * 0.5;
+        return (this.getTitleFontSize() * 0.6 + this.getAmountFontSize() * 0.6) * 0.5;
     }
 
     private getTitleFontSize(): number {

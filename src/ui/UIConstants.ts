@@ -9,13 +9,13 @@ export const UIConstants = {
     textStyles: {
         title: {
             fontFamily: "Verdana",
-            fontSize: 16,
+            fontSize: 14,
             fill: "#cccccc",
             align: "center"
         } as TextStyleOptions,
         amount: {
             fontFamily: "Verdana",
-            fontSize: 22,
+            fontSize: 20,
             fontWeight: "bold",
             fill: "#ffffff",
             align: "center"

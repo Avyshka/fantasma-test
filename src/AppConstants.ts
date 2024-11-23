@@ -8,5 +8,6 @@ export const AppConstants = {
         REELS_BACKGROUND: "REEL.png",
         WIN_BACKGROUND: "WIN_BG.png",
         SYMBOL_PATTERN: "SYM0{id}.png",
-    }
+    },
+    bottomBarHeight: 64
 };

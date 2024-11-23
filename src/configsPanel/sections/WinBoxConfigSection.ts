@@ -8,7 +8,7 @@ export class WinBoxConfigSection implements IConfigSection {
     private configPanelModel: ConfigPanelModel = ConfigPanelModel.getInstance();
 
     public createController(): GUI {
-        const folder: GUI = this.configPanelModel.getGui().addFolder("Reels speed");
+        const folder: GUI = this.configPanelModel.getGui().addFolder("Win box timings");
 
         folder
             .add(WinBoxConstants, "TICK_UP_TIME", 0.01, 5, 0.01)
