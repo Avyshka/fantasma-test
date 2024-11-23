@@ -12,6 +12,7 @@ import {ReelsModel} from "./reels/models/ReelsModel";
 import {ConfigPanelManager} from "./configsPanel/managers/ConfigPanelManager";
 import {ReelsConfigSection} from "./configsPanel/sections/ReelsConfigSection";
 import {WinBoxConfigSection} from "./configsPanel/sections/WinBoxConfigSection";
+import {GameConfigSection} from "./configsPanel/sections/GameConfigSection";
 
 export class Context {
 
@@ -63,7 +64,8 @@ export class Context {
             new ConfigPanelManager()
                 .init()
                 .addSection(new ReelsConfigSection())
-                .addSection(new WinBoxConfigSection());
+                .addSection(new WinBoxConfigSection())
+                .addSection(new GameConfigSection());
         }
 
         new GameFlowManager().startGame();

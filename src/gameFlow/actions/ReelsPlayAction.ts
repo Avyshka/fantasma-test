@@ -14,6 +14,7 @@ import {WaitStopReelsAction} from "./WaitStopReelsAction";
 import {DeductBetFromBalanceAction} from "./DeductBetFromBalanceAction";
 import {EnableSpinButtonAction} from "./EnableSpinButtonAction";
 import {ReelsIntents} from "../../reels/events/ReelsIntents";
+import {DisableSpinButtonAction} from "./DisableSpinButtonAction";
 
 export class ReelsPlayAction extends Action {
     private actionManager: ActionManager = new ActionManager();
@@ -29,6 +30,7 @@ export class ReelsPlayAction extends Action {
 
     private getActionSequence(): Constructor<IAction>[] {
         return [
+            DisableSpinButtonAction,
             WaitSpinAction,
             DoSpinRequestAction,
             DeductBetFromBalanceAction,

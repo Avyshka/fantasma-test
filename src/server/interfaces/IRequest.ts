@@ -1,8 +1,9 @@
 import {ServerRequestType} from "../types/ServerRequestType";
 
 export interface IRequest {
-    message: ServerRequestType,
+    message: ServerRequestType;
     payload?: {
-        bet: number
+        bet?: number;
+        balance?: number;
     }
 }

@@ -14,15 +14,28 @@ export class ServerConnector extends GlobalEventProvider {
         this.addListener(ServerEvents.SEND_RESPONSE_TO_SERVER_CONNECTOR, this.onResponse); // from server
         this.addListener(ServerEvents.SEND_INIT_REQUEST_TO_SERVER_CONNECTOR, this.onInitRequest); // to server
         this.addListener(ServerEvents.SEND_PLAY_REQUEST_TO_SERVER_CONNECTOR, this.onPlayRequest); // to server
+        if (__DEV__) {
+            this.addListener(ServerEvents.SEND_CHANGING_BALANCE_TO_SERVER_CONNECTOR, this.onChangeBalanceRequest); // to server
+        }
     }
 
-    protected onResponse(data: any): void {
+    private onResponse(data: any): void {
         this.log("ServerEvent.RESPONSE");
         console.log(data);
         this.dispatch(ServerEvents.RESPONSE, data);
     }
 
-    protected onInitRequest(): void {
+    private onChangeBalanceRequest(balance: number): void {
+        this.log("ServerEvent.SEND_CHANGING_BALANCE_TO_SERVER_CONNECTOR");
+        this.server.playRequest({
+            message: ServerRequests.UPDATE,
+            payload: {
+                balance: balance
+            }
+        });
+    }
+
+    private onInitRequest(): void {
         this.log("ServerEvent.SEND_INIT_REQUEST_TO_SERVER_CONNECTOR");
         this.server.playRequest({
             message: ServerRequests.INIT,
@@ -30,7 +43,7 @@ export class ServerConnector extends GlobalEventProvider {
         });
     }
 
-    protected onPlayRequest(): void {
+    private onPlayRequest(): void {
         this.log("ServerEvent.SEND_PLAY_REQUEST_TO_SERVER_CONNECTOR");
         this.server.playRequest({
             message: ServerRequests.SPIN,
@@ -40,10 +53,10 @@ export class ServerConnector extends GlobalEventProvider {
         });
     }
 
-    protected log(msg: string): void {
+    private log(msg: string): void {
         if (__DEV__) {
-            const backgroundColor: string = "#11281b";
-            const textColor: string = "#50ff7d";
+            const backgroundColor: string = "#112825";
+            const textColor: string = "#50ffd0";
             console.log(`%c${msg}`, `background: ${backgroundColor}; color: ${textColor}`);
         }
     }

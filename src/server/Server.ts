@@ -11,6 +11,11 @@ export class Server extends GlobalEventProvider {
     private serverModel: ServerModel = new ServerModel();
 
     public playRequest(data: IRequest): void {
+        if (__DEV__ && data.message === ServerRequests.UPDATE) {
+            this.serverModel.balance = data.payload.balance;
+            this.dispatch(ServerEvents.SEND_RESPONSE_TO_SERVER_CONNECTOR, this.getResponse(data.message));
+            return;
+        }
         if (data.message === ServerRequests.SPIN) {
             this.serverModel.bet = data.payload.bet;
             this.serverModel.balance -= this.serverModel.bet;
@@ -27,6 +32,20 @@ export class Server extends GlobalEventProvider {
     }
 
     private getResponse(message: ServerRequests): IServerResponse {
+        if (__DEV__ && message === ServerRequests.UPDATE) { // only for changing balance in the game config panel
+            return {
+                balance: {
+                    amount: this.serverModel.balance,
+                    currency: this.serverModel.currency
+                },
+                bet: this.serverModel.bet,
+                result: {
+                    action: ServerRequests.UPDATE,
+                    view: this.serverModel.view,
+                    set: this.serverModel.set
+                }
+            };
+        }
         return {
             balance: {
                 amount: this.serverModel.balance,

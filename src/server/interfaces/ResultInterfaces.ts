@@ -2,15 +2,14 @@ import {ServerRequestType} from "../types/ServerRequestType";
 
 export interface IBaseResult {
     action: ServerRequestType;
+    view: IReelView;
 }
 
 export interface IInitResult extends IBaseResult {
     set: number[][];
-    view: IReelView;
 }
 
 export interface ISpinResult extends IBaseResult {
-    view: IReelView;
     totalWin: number;
     winSymbolPositions: number[][];
 }

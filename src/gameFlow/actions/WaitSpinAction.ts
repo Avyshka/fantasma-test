@@ -2,10 +2,15 @@ import {Action} from "../../app/actions/Action";
 import {IReelsActionInfo} from "../../app/actions/interfaces/IReelsActionInfo";
 import {GameFlowIntents} from "../events/GameFlowIntents";
 import {SpinButtonIntents} from "../../ui/events/SpinButtonIntents";
+import {BalanceModel} from "../../ui/models/BalanceModel";
+import {BetModel} from "../../ui/models/BetModel";
 
 export class WaitSpinAction extends Action {
     private mainResolve: Function;
     private actionInfo: IReelsActionInfo;
+
+    private balanceModel: BalanceModel = BalanceModel.getInstance();
+    private betModel: BetModel = BetModel.getInstance();
 
     protected isTerminable(): boolean {
         return false;
@@ -37,7 +42,7 @@ export class WaitSpinAction extends Action {
     }
 
     private isAbleToSpin(): boolean {
-        return true; // fixme: check to hasEnoughBalance
+        return this.balanceModel.balance >= this.betModel.bet;
     }
 
     private onSpinStarted(actionInfo: IReelsActionInfo): void {
@@ -48,7 +53,7 @@ export class WaitSpinAction extends Action {
     }
 
     private onSpinFailed(actionInfo: IReelsActionInfo): void {
-        // todo: lock UI or show info popup?
+        this.dispatch(SpinButtonIntents.CHANGE_STATE, false);
     }
 
     private readyToResolve(actionInfo: IReelsActionInfo): void {
