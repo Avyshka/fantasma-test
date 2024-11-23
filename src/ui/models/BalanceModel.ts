@@ -8,7 +8,6 @@ import {SpinButtonIntents} from "../events/SpinButtonIntents";
 export class BalanceModel extends BaseServerModel {
 
     private _balance: number;
-    private _currency: string;
 
     private static instance: BalanceModel;
 
@@ -24,9 +23,6 @@ export class BalanceModel extends BaseServerModel {
     }
 
     protected parseResponse(data: IServerResponse): void {
-        if (data.result.action === ServerRequests.INIT) {
-            this._currency = data.balance.currency;
-        }
         this._balance = data.balance.amount;
 
         if (__DEV__ && data.result.action === ServerRequests.UPDATE) {
@@ -46,9 +42,5 @@ export class BalanceModel extends BaseServerModel {
 
     public set balance(value: number) {
         this._balance = value;
-    }
-
-    public get currency(): string {
-        return this._currency;
     }
 }

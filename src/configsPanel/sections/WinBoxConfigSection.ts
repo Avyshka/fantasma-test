@@ -19,6 +19,9 @@ export class WinBoxConfigSection implements IConfigSection {
         folder
             .add(WinBoxConstants, "DELAY_BEFORE_HIDE_IN_TERMINATE", 1, 3000, 1)
             .name("Delay before hide tick-up in terminate, [ms]");
+        folder
+            .add(WinBoxConstants, "CHANGE_VISIBILITY_DURATION", 0.05, 1, 0.01)
+            .name("Change visibility duration, [sec]");
 
         return folder;
     }

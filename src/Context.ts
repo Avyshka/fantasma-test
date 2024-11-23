@@ -38,7 +38,6 @@ export class Context {
             .getElementById("pixi-canvas")
             .appendChild(this.app.view);
 
-        this.app.ticker.add(this.update.bind(this));
         window.onresize = () => this.resize();
     }
 
@@ -82,9 +81,5 @@ export class Context {
         this.app.stage.scale.set(scale);
         this.app.stage.x = isLandscape ? (window.innerWidth - AppConstants.width * scale) * 0.5 : 0;
         this.app.stage.y = isLandscape ? 0 : (window.innerHeight - AppConstants.height * scale) * 0.5;
-    }
-
-    private update(deltaTime: number): void {
-
     }
 }

@@ -32,8 +32,8 @@ export class ReelsPlayAction extends Action {
         return [
             DisableSpinButtonAction,
             WaitSpinAction,
-            DoSpinRequestAction,
             DeductBetFromBalanceAction,
+            DoSpinRequestAction,
             StartReelsAction,
             WaitResponseAction,
             WaitStopReelsAction,

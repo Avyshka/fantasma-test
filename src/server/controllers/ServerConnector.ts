@@ -21,7 +21,6 @@ export class ServerConnector extends GlobalEventProvider {
 
     private onResponse(data: any): void {
         this.log("ServerEvent.RESPONSE");
-        console.log(data);
         this.dispatch(ServerEvents.RESPONSE, data);
     }
 

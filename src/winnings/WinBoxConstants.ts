@@ -4,6 +4,7 @@ export const WinBoxConstants = {
     TICK_UP_TIME: 1,
     DELAY_BEFORE_HIDE: 1500,
     DELAY_BEFORE_HIDE_IN_TERMINATE: 1000,
+    CHANGE_VISIBILITY_DURATION: 0.3,
 
     textStyle: {
         fontFamily: "Verdana",

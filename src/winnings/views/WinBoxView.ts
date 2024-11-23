@@ -47,10 +47,10 @@ export class WinBoxView extends LayoutView {
 
     private changeVisibility(visibility: boolean): void {
         TweenMax.killTweensOf(this);
-        TweenMax.to(this, 0.3, {
+        TweenMax.to(this, WinBoxConstants.CHANGE_VISIBILITY_DURATION, {
             alpha: visibility ? 1 : 0
         });
-        TweenMax.to(this.scale, 0.3, {
+        TweenMax.to(this.scale, WinBoxConstants.CHANGE_VISIBILITY_DURATION, {
             x: visibility ? 1 : 0,
             y: visibility ? 1 : 0,
             ease: visibility ? Back.easeOut : Back.easeIn
