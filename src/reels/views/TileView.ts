@@ -1,5 +1,5 @@
 import {BaseView} from "../../app/views/BaseView";
-import {Sprite, Texture} from "../../export";
+import {BlurFilter, Sprite, Texture} from "../../export";
 import {AppConstants} from "../../AppConstants";
 import {StringUtils} from "../../app/utils/StringUtils";
 import {TweenMax} from "gsap";
@@ -10,9 +10,10 @@ export class TileView extends BaseView {
     private renderSprite: Sprite;
 
     private symbolId: number;
-    private isBlur: boolean;
 
     public stoppingTileResolve: Function;
+
+    private blurFilter: BlurFilter;
 
     constructor() {
         super();
@@ -21,6 +22,10 @@ export class TileView extends BaseView {
         this.renderSprite.x = ReelsConstants.TILE_WIDTH * 0.5;
         this.renderSprite.y = ReelsConstants.TILE_HEIGHT * 0.5;
         this.addChild(this.renderSprite);
+
+        this.blurFilter = new BlurFilter();
+        this.blurFilter.blurX = 0;
+        this.blurFilter.blurY = 15;
 
         this.pivot.y = ReelsConstants.TILE_HEIGHT * 0.5;
     }
@@ -31,8 +36,7 @@ export class TileView extends BaseView {
     }
 
     public toggleBlur(isBlur: boolean): void {
-        this.isBlur = isBlur;
-        // todo: add blur filter?
+        this.renderSprite.filters = isBlur ? [this.blurFilter] : [];
     }
 
     public async playAnimation(loop: boolean): Promise<void> {

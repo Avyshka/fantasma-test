@@ -1,4 +1,5 @@
 import Application = PIXI.Application;
+import BlurFilter = PIXI.filters.BlurFilter;
 import Circle = PIXI.Circle;
 import Container = PIXI.Container;
 import EventEmitter = PIXI.utils.EventEmitter;
@@ -12,6 +13,7 @@ import TextStyleOptions = PIXI.TextStyleOptions;
 
 export {
     Application,
+    BlurFilter,
     Circle,
     Container,
     EventEmitter,
