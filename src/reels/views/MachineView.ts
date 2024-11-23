@@ -30,15 +30,13 @@ export class MachineView extends BaseView {
         this.pivot.x = this.width * 0.5;
     }
 
-    public async startSpinning(): Promise<void> {
+    public startSpinning(): void {
         this.reelsStatesModel.canStopEnabled = true;
         this.reelsStatesModel.forceStopActive = false;
         this.reelsStatesModel.reelStartingPromises = [];
         this.reelsStatesModel.reelStoppingPromises = [];
-        this.reelsStatesModel.reelForceStoppingPromises = [];
         this.reelsStatesModel.reelStoppingResolves = [];
         this.fillReelStartingPromises();
-        await Promise.all(this.reelsStatesModel.reelStartingPromises);
     }
 
     private fillReelStartingPromises(): void {
@@ -47,15 +45,13 @@ export class MachineView extends BaseView {
         }
     }
 
-    public async stop(): Promise<void> {
+    public stop(): void {
         if (this.reelsStatesModel.forceStopActive || !this.reelsStatesModel.canStopEnabled) {
             return;
         }
-        this.reelsStatesModel.canStopEnabled = true;
+        this.reelsStatesModel.canStopEnabled = false;
 
-        for (let i: number = 0; i < ReelsConstants.COUNT_REELS; i++) {
-            this.reelsStatesModel.reelStoppingPromises.push(this.getReelStopPromise(this.reels[i], i));
-        }
+        this.doStoppingReels();
         this.waitStopping();
     }
 
@@ -65,39 +61,29 @@ export class MachineView extends BaseView {
         }
         this.reelsStatesModel.forceStopActive = true;
 
-        this.perReelStoppingTimeout.forEach((timeout) => clearTimeout(timeout));
-        this.perReelStoppingTimeout = [];
-
-        for (let i: number = 0; i < ReelsConstants.COUNT_REELS; i++) {
-            const reel: ReelView = this.reels[i];
-            if (this.isReelForceStopAllowed(reel)) {
-                this.reelsStatesModel.reelForceStoppingPromises.push(this.getReelForceStopPromise(reel));
-                if (this.reelsStatesModel.reelStoppingResolves[i]) {
-                    this.reelsStatesModel.reelStoppingResolves[i]();
-                }
-            }
-        }
+        this.doStoppingReels();
         this.waitStopping();
     }
 
-    private isReelForceStopAllowed(reel: ReelView): boolean {
-        return !this.reelsStatesModel.isSingleReelStopped(reel.reelId) && !reel.finalStoppingTweenActive;
+    private doStoppingReels(): void {
+        for (let i: number = 0; i < ReelsConstants.COUNT_REELS; i++) {
+            this.reelsStatesModel.reelStoppingPromises.push(this.getReelStopPromise(this.reels[i], i));
+        }
     }
 
-    private async waitStopping(): Promise<void> {
-        await Promise.all(this.reelsStatesModel.reelStoppingPromises);
-        await Promise.all(this.reelsStatesModel.reelForceStoppingPromises);
+    private waitStopping(): void {
+        Promise.all(this.reelsStatesModel.reelStoppingPromises)
+            .then(() => {
+                this.perReelStoppingTimeout.forEach((timeout) => clearTimeout(timeout));
+                this.perReelStoppingTimeout = [];
 
-        this.perReelStoppingTimeout.forEach((timeout) => clearTimeout(timeout));
-        this.perReelStoppingTimeout = [];
+                this.reelsStatesModel.reelStartingPromises = [];
+                this.reelsStatesModel.reelStoppingPromises = [];
 
-        this.reelsStatesModel.reelStartingPromises = [];
-        this.reelsStatesModel.reelStoppingPromises = [];
-        this.reelsStatesModel.reelForceStoppingPromises = [];
+                this.reelsStatesModel.forceStopActive = false;
 
-        this.reelsStatesModel.forceStopActive = false;
-
-        this.emit(ReelsViewEvents.ALL_REELS_STOPPED);
+                this.emit(ReelsViewEvents.ALL_REELS_STOPPED);
+            });
     }
 
     private getReelStopPromise(reel: ReelView, reelIndex: number): Promise<void> {
@@ -109,14 +95,10 @@ export class MachineView extends BaseView {
         });
     }
 
-    private getReelForceStopPromise(reel: ReelView): Promise<void> {
-        return reel.readyForceStop();
-    }
-
     private getPerReelStoppingDelay(reelIndex: number): number {
-        if (this.reelsStatesModel.forceStopActive) {
-            return 0;
-        }
-        return reelIndex * ReelsConstants.PER_REEL_STOPPING_DELAY;
+        const delay: number = this.reelsStatesModel.forceStopActive
+            ? ReelsConstants.FORCE_PER_REEL_STOPPING_DELAY
+            : ReelsConstants.PER_REEL_STOPPING_DELAY;
+        return reelIndex * delay;
     }
 }

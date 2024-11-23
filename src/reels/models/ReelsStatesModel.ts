@@ -13,7 +13,6 @@ export class ReelsStatesModel extends GlobalEventProvider {
 
     public reelStartingPromises: Promise<void>[];
     public reelStoppingPromises: Promise<void>[];
-    public reelForceStoppingPromises: Promise<void>[];
     public reelStoppingResolves: Function[];
 
     private constructor() {
@@ -29,14 +28,6 @@ export class ReelsStatesModel extends GlobalEventProvider {
 
     public setSingleReelState(state: ReelStateType, reelId: number): void {
         this.states[reelId] = state;
-    }
-
-    public getSingleReelState(reelId: number): ReelStateType {
-        return this.states[reelId];
-    }
-
-    public isSingleReelStopped(reelId: number): boolean {
-        return this.states[reelId] === ReelsStatesEnum.STOPPED;
     }
 
     public isAllReelsStopped(): boolean {

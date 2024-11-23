@@ -19,6 +19,9 @@ export class ReelsConfigSection implements IConfigSection {
         folder
             .add(ReelsConstants.speed, "STOPPING_DURATION", 0.001, 2, 0.001)
             .name("Stopping duration, [sec]");
+        folder
+            .add(ReelsConstants.speed, "FORCE_STOPPING_DURATION", 0.001, 2, 0.001)
+            .name("FORCE Stopping duration, [sec]");
 
         folder
             .add(ReelsConstants.speed, "FINAL_PRE_BOUNCE_TILE_DURATION", 0.001, 0.01, 0.0001)
@@ -26,20 +29,9 @@ export class ReelsConfigSection implements IConfigSection {
         folder
             .add(ReelsConstants.speed, "FINAL_BOUNCE_TILE_DURATION", 0.001, 1, 0.001)
             .name("Final bounce tile duration, [sec]");
-
-        folder
-            .add(ReelsConstants.speed, "FORCE_FINAL_PRE_BOUNCE_TILE_DURATION", 0.001, 1, 0.001)
-            .name("FORCE final PRE bounce tile duration, [sec]");
-        folder
-            .add(ReelsConstants.speed, "FORCE_FINAL_BOUNCE_TILE_DURATION", 0.001, 1, 0.0005)
-            .name("FORCE final bounce tile duration, [sec]");
-
         folder
             .add(ReelsConstants.speed, "ROLLING_OUT_PERCENT", 0, 1, 0.01)
             .name("Rolling out, [%]");
-        folder
-            .add(ReelsConstants.speed, "FORCE_ROLLING_OUT_PERCENT", 0, 1, 0.01)
-            .name("FORCE rolling out, [%]");
 
         folder
             .add(ReelsConstants, "MIN_SPIN_DURATION", 0, 5000, 1)
@@ -47,6 +39,9 @@ export class ReelsConfigSection implements IConfigSection {
         folder
             .add(ReelsConstants, "PER_REEL_STOPPING_DELAY", 0, 2000, 1)
             .name("Per reel stopping delay, [ms]");
+        folder
+            .add(ReelsConstants, "FORCE_PER_REEL_STOPPING_DELAY", 0, 2000, 1)
+            .name("FORCE Per reel stopping delay, [ms]");
 
         return folder;
     }

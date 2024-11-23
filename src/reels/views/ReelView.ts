@@ -1,7 +1,7 @@
 import {BaseView} from "../../app/views/BaseView";
 import {TileView} from "./TileView";
 import {Tween} from "../../app/utils/Tween";
-import {Back, Elastic, Power0, TweenMax} from "gsap";
+import {Back, Elastic, Power0} from "gsap";
 import {ReelsConstants} from "../ReelsConstants";
 import {SpinDirection} from "../enums/SpinDirection";
 import {ReelsStatesModel} from "../models/ReelsStatesModel";
@@ -146,8 +146,12 @@ export class ReelView extends BaseView {
     private async doStopping(tile: TileView): Promise<void> {
         this.reelsStatesModel.setSingleReelState(ReelsStatesEnum.STOPPING, this.reelId);
 
+        const duration: number = this.reelsStatesModel.forceStopActive
+            ? ReelsConstants.speed.FORCE_STOPPING_DURATION
+            : ReelsConstants.speed.STOPPING_DURATION;
+
         for (let i: number = 0; i < this.tiles.length; i++) {
-            await Tween.to(tile, ReelsConstants.speed.STOPPING_DURATION, {
+            await Tween.to(tile, duration, {
                 y: tile.y + this.getNextPointY(),
             });
             this.changeStoppingCallback(tile);
@@ -208,80 +212,5 @@ export class ReelView extends BaseView {
 
     private updateBlur(isBlur: boolean): void {
         this.tiles.forEach((tile: TileView) => tile.toggleBlur(isBlur));
-    }
-
-    /**
-     *  FORCE STOP LOGIC
-     */
-    public async readyForceStop(): Promise<void> {
-        if (this.reelsStatesModel.getSingleReelState(this.reelId) === ReelsStatesEnum.STOPPED) {
-            return Promise.resolve();
-        }
-        this.result = this.reelsUtil.getReelStopSymbols(this.reelId);
-        this.stoppingForcePromise = new Promise(resolve => {
-            this.stoppingForceResolve = resolve;
-        });
-        this.stoppingResolves.forEach(stoppingResolve => {
-            stoppingResolve();
-            stoppingResolve = null;
-        });
-        this.tiles.forEach((tile: TileView) => {
-            TweenMax.killTweensOf(tile);
-            if (tile.stoppingTileResolve) {
-                tile.stoppingTileResolve();
-                tile.stoppingTileResolve = null;
-            }
-        });
-        this.reelsStatesModel.setSingleReelState(ReelsStatesEnum.STOPPING, this.reelId);
-        this.updateBlur(false);
-
-        return this.changeForceStoppingForTile();
-    }
-
-    private changeForceStoppingForTile(): Promise<void> {
-        const forceStopPromises: Promise<void>[] = [];
-
-        const tiles: TileView[] = this.reelsViewModel.singleReelModels[this.reelId].getTiles();
-
-        this.result.forEach((symbolId: number, index: number) => {
-            const tile: TileView = tiles[index];
-            tile.setTile(symbolId);
-            tile.y = this.getTilePositionYByLineIndex(index);
-            forceStopPromises.push(this.doForceStop(tile));
-        });
-
-        return Promise.all(forceStopPromises)
-            .then(() => this.finishDoForceStop());
-    }
-
-    private getTilePositionYByLineIndex(index: number): number {
-        const startPositionY: number = this.spinDirection === SpinDirection.Down
-            ? this.getLowestTilePositionY()
-            : this.getHighestTilePositionY();
-        return (ReelsConstants.TILE_HEIGHT + ReelsConstants.TILE_GAP) * index * this.getDirectionModifier() + startPositionY;
-    }
-
-    private async doForceStop(tile: TileView): Promise<void> {
-        this.reelsStatesModel.setSingleReelState(ReelsStatesEnum.LANDING, this.reelId);
-        const shiftY: number = this.getNextPointY() * ReelsConstants.speed.FORCE_ROLLING_OUT_PERCENT;
-        await Tween.to(tile, ReelsConstants.speed.FORCE_FINAL_PRE_BOUNCE_TILE_DURATION, {
-            y: tile.y + shiftY
-        });
-        await Tween.to(tile, ReelsConstants.speed.FORCE_FINAL_BOUNCE_TILE_DURATION, {
-            y: tile.y - shiftY,
-        });
-        return Promise.resolve();
-    }
-
-    private finishDoForceStop(): void {
-        this.stoppingForcePromise = null;
-        this.stoppingPromises = [];
-        this.result = null;
-        this.reelsStatesModel.setSingleReelState(ReelsStatesEnum.STOPPED, this.reelId);
-        this.stopSpinning = false;
-        if (this.stoppingForceResolve) {
-            this.stoppingForceResolve();
-            this.stoppingForceResolve = null;
-        }
     }
 }
