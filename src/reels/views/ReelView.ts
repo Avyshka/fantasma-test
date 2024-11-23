@@ -186,7 +186,7 @@ export class ReelView extends BaseView {
         await Tween.to(tile, ReelsConstants.speed.FINAL_PRE_BOUNCE_TILE_DURATION, {
             y: tile.y + shiftY
         });
-        await Tween.to(tile, this.getFinalBounceTileDuration(), {
+        await Tween.to(tile, ReelsConstants.speed.FINAL_BOUNCE_TILE_DURATION, {
             y: tile.y - shiftY,
             ease: Elastic.easeOut.config(1, 0.35)
         });
@@ -200,14 +200,6 @@ export class ReelView extends BaseView {
             tile.stoppingTileResolve = null;
         }
         this.reelsStatesModel.setSingleReelState(ReelsStatesEnum.STOPPED, this.reelId);
-    }
-
-    private getFinalBounceTileDuration(): number {
-        return ReelsConstants.speed.FINAL_BOUNCE_TILE_DURATION;
-    }
-
-    private getForceFinalBounceTileDuration(): number {
-        return ReelsConstants.speed.FORCE_FINAL_BOUNCE_TILE_DURATION;
     }
 
     private getNextTile(): number {
@@ -272,10 +264,10 @@ export class ReelView extends BaseView {
     private async doForceStop(tile: TileView): Promise<void> {
         this.reelsStatesModel.setSingleReelState(ReelsStatesEnum.LANDING, this.reelId);
         const shiftY: number = this.getNextPointY() * ReelsConstants.speed.FORCE_ROLLING_OUT_PERCENT;
-        await Tween.to(tile, this.getFinalBounceTileDuration() * 0.25, {
+        await Tween.to(tile, ReelsConstants.speed.FORCE_FINAL_PRE_BOUNCE_TILE_DURATION, {
             y: tile.y + shiftY
         });
-        await Tween.to(tile, this.getForceFinalBounceTileDuration() * 0.25, {
+        await Tween.to(tile, ReelsConstants.speed.FORCE_FINAL_BOUNCE_TILE_DURATION, {
             y: tile.y - shiftY,
         });
         return Promise.resolve();
